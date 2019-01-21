@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- 
+Gist is here:
+https://gist.github.com/charlieknoll/c6b60d8417c5ca00491c4f61c8630628
+use rawgit.com for url
+a broken version on Kendo is here (add extra records): https://dojo.telerik.com/UqEKeNeV
+ -->
+
+<head>
+    <!-- <base href="https://demos.telerik.com/kendo-ui/pdf-export/page-layout"> -->
+    <style>
+        html {
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.material.mobile.min.css" />
+    <link rel="stylesheet" href="https://www.responsivepaper.com/devtools/reportsjs.designer.css" />
+
+    <script src="https://kendo.cdn.telerik.com/2018.2.516/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.2.516/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.2.516/js/kendo.all.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="rjs-page">
+        <div class="pdf-header rjs-page-header">
+            <span class="company-logo">
+                <img src="https://demos.telerik.com/kendo-ui/content/web/framework/company-logo.png" /> Blauer See Delikatessen
+            </span>
+            <span class="invoice-number">Invoice #23543</span>
+        </div>
+        <div class="pdf-footer rjs-page-footer">
+            <div class="float-right text-right" style="margin-top: 2.5em">
+                Powered by &copy; 2018 responsivepaper.com &nbsp; Page
+                <span class="rjs-page-number">1</span> of
+                <span class="rjs-page-count">1</span>
+            </div>
+
+
+            <div>
+                Blauer See Delikatessen
+                <br /> Lützowplatz 456
+                <br /> Berlin, Germany, 10785
+            </div>
+        </div>
+        <div class="addresses">
+            <div class="for">
+                <h3>Invoice For</h3>
+                <p>
+                    Antonio Moreno
+                    <br /> Naucalpan de Juárez
+                    <br /> México D.F., Mexico, 53500
+                </p>
+            </div>
+
+            <div class="from">
+                <h3>From</h3>
+                <p>
+                    Hanna Moos
+                    <br /> Lützowplatz 456
+                    <br /> Berlin, Germany, 10785
+                </p>
+                <p>
+                    Invoice ID: 23543
+                    <br /> Invoice Date: 12.03.2014
+                    <br /> Due Date: 27.03.2014
+                </p>
+            </div>
+        </div>
+        <div class="pdf-body">
+            <div id="grid"></div>
+            <p class="signature">
+                Signature: ________________
+                <br />
+                <br /> Date: 12.03.2014
+            </p>
+        </div>
+    </div>
+
+
+
+    <style>
+        /*
+			Use the DejaVu Sans font for display and embedding in the PDF file.
+			The standard PDF fonts have no support for Unicode characters.
+		*/
+
+        .rjs-page {
+            font-family: "DejaVu Sans", "Arial", sans-serif;
+        }
+    </style>
+
+    <script>
+        // Import DejaVu Sans font for embedding
+
+        // NOTE: Only required if the Kendo UI stylesheets are loaded
+        // from a different origin, e.g. cdn.kendostatic.com
+        kendo.pdf.defineFont({
+            "DejaVu Sans": "https://kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans.ttf",
+            "DejaVu Sans|Bold": "https://kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
+            "DejaVu Sans|Bold|Italic": "https://kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
+            "DejaVu Sans|Italic": "https://kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
+            "WebComponentsIcons": "https://kendo.cdn.telerik.com/2017.1.223/styles/fonts/glyphs/WebComponentsIcons.ttf"
+        });
+    </script>
+
+
+    <script>
+
+        $(document).ready(function () {
+            var data = [
+                { productName: "QUESO CABRALES", unitPrice: 21, qty: 5 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "ALICE MUTTON", unitPrice: 39, qty: 7 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "GENEN SHOUYU", unitPrice: 15.50, qty: 3 },
+                { productName: "CHARTREUSE VERTE", unitPrice: 18, qty: 1 }
+            ];
+            var schema = {
+                model: {
+                    productName: { type: "string" },
+                    unitPrice: { type: "number", editable: false },
+                    qty: { type: "number" }
+                },
+                parse: function (data) {
+                    $.each(data, function () {
+                        this.total = this.qty * this.unitPrice;
+                    });
+                    return data;
+                }
+            };
+            var aggregate = [
+                { field: "qty", aggregate: "sum" },
+                { field: "total", aggregate: "sum" }
+            ];
+            var columns = [
+                { field: "productName", title: "Product", footerTemplate: "Total" },
+                { field: "unitPrice", title: "Price", width: 90 },
+                { field: "qty", title: "Pcs.", width: 90, aggregates: ["sum"], footerTemplate: "#=sum#" },
+                { field: "total", title: "Total", width: 100, aggregates: ["sum"], footerTemplate: "#=sum#" }
+            ];
+            var grid = $("#grid").kendoGrid({
+                editable: false,
+                sortable: true,
+                dataSource: {
+                    data: data,
+                    aggregate: aggregate,
+                    schema: schema,
+                },
+                columns: columns
+            });
+
+            $("#paper").kendoDropDownList({
+                change: function () {
+                    $(".pdf-page")
+                        .removeClass("size-a4")
+                        .removeClass("size-letter")
+                        .removeClass("size-executive")
+                        .addClass(this.value());
+                }
+            });
+        });
+    </script>
+    <style>
+        .pdf-header {
+            padding-bottom: .2in;
+            margin-bottom: .3in;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .invoice-number {
+            padding-top: .1in;
+            float: right;
+        }
+
+        .pdf-footer {
+            /* position: absolute;
+            bottom: .25in;
+            left: .3in;
+            right: .3in; */
+            padding-top: 0.05in;
+            border-top: 1px solid #e5e5e5;
+            font-size: 0.9em;
+            text-align: left;
+            color: #787878;
+        }
+
+        .addresses {
+            font-size: 12px;
+        }
+
+        .addresses:after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+        .for {
+            float: left;
+        }
+
+        .from {
+            float: right;
+        }
+
+        .addresses p {
+            color: #787878;
+            padding: .05in 0;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .addresses p:first-of-type {
+            border-top: 0;
+        }
+
+        .pdf-body {
+            margin-top: .3in;
+        }
+
+        .company-logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #3aabf0;
+        }
+
+        .signature {
+            padding-top: .3in;
+        }
+
+        .float-right {
+            float: right;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+
+    </div>
+
+
+</body>
+
+</html>
