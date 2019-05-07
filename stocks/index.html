@@ -7,11 +7,13 @@
   <link rel="stylesheet" href="assets/toc.css" />
   <link rel="stylesheet" href="assets/header-footer.css" />
   <link rel="stylesheet" href="assets/main.css" />
+  <link rel="stylesheet" href="https://www.responsivepaper.com/devtools/reportsjs.designer.css" />
   <script src="https://unpkg.com/numbro@2.1.2/dist/numbro.min.js"></script>
   <script src="https://unpkg.com/chart.js@2.7.3/dist/Chart.min.js"></script>
   <script src="https://unpkg.com/chartjs-plugin-datalabels@0.6.0/dist/chartjs-plugin-datalabels.min.js"></script>
   <script src="https://unpkg.com/handlebars@latest/dist/handlebars.min.js"></script>
-
+  <script src="https://unpkg.com/moment@latest/min/moment.min.js"></script>
+  <script src="helpers.js"></script>
   <!--OPTIONAL Handlebars loader-->
 
 
@@ -19,175 +21,208 @@
 <script src="https://unpkg.com/handlebars@latest/dist/handlebars.min.js"></script>
 
 -->
+  <!--css to handle rjs-page on body -->
+  <!-- <style>
+    html {
+      background-color: grey;
+      margin: 0;
+      padding: 0;
+    }
 
+    body.rjs-page>* {
+      display: initial;
+    }
+
+    body.rjs-page>script {
+      display: none;
+    }
+  </style> -->
 </head>
 
 
 <body>
+  <div class='rjs-page'>
 
-  {{#each companies}}
-  <header class="header">
-    <section class="header-content">
-      <section class="header-company">
-        <h1 class="header-title">{{company.fullName}} ({{company.abbreviation}})</h1>
-        <h2 class="header-subtitle">{{company.business}}</h2>
-      </section>
-      <section class="header-legend">
-        <h1 class="header-title">Detailed Stock Report</h1>
-        <h2 class="header-subtitle">Report Date: {{formatReportDate}}</h2>
-      </section>
-    </section>
-  </header>
-  <section id="{{peerName}}">
-    <section class="summary-score">
-      <section class="summary-score-row">
-        <div>
-          <div>
-            <div class="summary-score-label">Last Close</div>
-            <div class="summary-score-top-label">
-              <span class="summary-score-value">{{lastClose}}</span>&nbsp;<span
-                class="summary-score-currency">({{currency}})</span>
-            </div>
-          </div>
-          <div class="summary-score-separator">
-            <!--TODO formatReportDate ../exchangeDate -->
-            <div class="summary-score-text">{{exchangeDate}}</div>
-            <div class="summary-score-top-label">
-              <span class="summary-score-text">{{stockExchange}} Exchange</span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <table class="summary-score-table">
-            <tr>
-              <td class="summary-score-label">Avg Daily Vol</td>
-              <td class="summary-score-label">52-Week High</td>
-              <td class="summary-score-label">Trailing PE</td>
-              <td class="summary-score-label">Annual Div</td>
-              <td class="summary-score-label cell-space">ROE</td>
-              <td class="summary-score-label">LTG Forecast</td>
-              <td class="summary-score-label">1-Mo Return</td>
-            </tr>
-            <tr>
-              <td class="summary-score-value" data-number-format>{{avgDailyVol}}</td>
-              <td class="summary-score-value" data-number-format>{{52WeekHigh}}</td>
-              <td class="summary-score-value" data-number-format>{{trailingPE}}</td>
-              <td class="summary-score-value" data-number-format>{{annualDiv}}</td>
-              <td class="summary-score-value" data-percentage-format>{{roePercentage}}</td>
-              <td class="summary-score-value" data-percentage-format>{{ltgForecastPercentage}}</td>
-              <td class="summary-score-value" data-percentage-format>{{1MoReturnPercentage}}</td>
-            </tr>
-            <tr class="summary-score-table-top-space">
-              <td class="summary-score-label">Market Cap</td>
-              <td class="summary-score-label">52-Week Low</td>
-              <td class="summary-score-label">Forward PE</td>
-              <td class="summary-score-label">Dividend Yield</td>
-              <td class="summary-score-label cell-space">Annual Rev</td>
-              <td class="summary-score-label">Inst Own</td>
-              <td class="summary-score-label">3-Mo Return</td>
-            </tr>
-            <tr>
-              <td class="summary-score-value" data-average-format>{{marketCap}}</td>
-              <td class="summary-score-value" data-number-format>{{52WeekLow}}</td>
-              <td class="summary-score-value" data-number-format>{{forwardPE}}</td>
-              <td class="summary-score-value" data-percentage-format>{{dividendYieldPercentage}}</td>
-              <td class="summary-score-value" data-average-format>{{annualRev}}</td>
-              <td class="summary-score-value" data-percentage-format>{{instOwnPercentage}}</td>
-              <td class="summary-score-value" data-percentage-format>{{3MoReturn}}</td>
-            </tr>
-          </table>
-        </div>
-      </section>
-    </section>
-  </section>
-
-
-  {{/each}}
-  <footer class="footer">
-    <section class="footer-content">
-      <section class="footer-legend">
-        <div class="footer-page-numbers">Page x of XXX
-        </div>
-        <div class="footer-copy">© 209999 jsreport. All rights reserved.</div>
-      </section>
-      <section class="footer-logo">
-        <img src="images/logo.png" />
-      </section>
-    </section>
-  </footer>
-
+  </div>
 </body>
-<script>
-  async function main() {
+<script id="reportTemplate" type="text/x-handlebars-template">
+    {{#each companies}}
+    {{#if @index}}
+    <div class="rjs-force-page-break"></div>
+    {{/if}}
+    <header class="header">
+      <section class="header-content">
+        <section class="header-company">
+          <h1 class="header-title">{{company.fullName}} ({{company.abbreviation}})</h1>
+          <h2 class="header-subtitle">{{company.business}}</h2>
+        </section>
+        <section class="header-legend">
+          <h1 class="header-title">Detailed Stock Report</h1>
+          <h2 class="header-subtitle">Report Date: {{formatReportDate}}</h2>
+        </section>
+      </section>
+    </header>
+    <section id="{{peerName}}">
+      <section class="summary-score">
+        <section class="summary-score-row">
+          <div>
+            <div>
+              <div class="summary-score-label">Last Close</div>
+              <div class="summary-score-top-label">
+                <span class="summary-score-value">{{lastClose}}</span>&nbsp;<span
+                  class="summary-score-currency">({{currency}})</span>
+              </div>
+            </div>
+            <div class="summary-score-separator">
+              <div class="summary-score-text">{{formatReportDate ../exchangeDate}}</div>
+              <div class="summary-score-top-label">
+                <span class="summary-score-text">{{stockExchange}} Exchange</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <table class="summary-score-table">
+              <tr>
+                <td class="summary-score-label">Avg Daily Vol</td>
+                <td class="summary-score-label">52-Week High</td>
+                <td class="summary-score-label">Trailing PE</td>
+                <td class="summary-score-label">Annual Div</td>
+                <td class="summary-score-label cell-space">ROE</td>
+                <td class="summary-score-label">LTG Forecast</td>
+                <td class="summary-score-label">1-Mo Return</td>
+              </tr>
+              <tr>
+                <td class="summary-score-value" data-number-format>{{avgDailyVol}}</td>
+                <td class="summary-score-value" data-number-format>{{52WeekHigh}}</td>
+                <td class="summary-score-value" data-number-format>{{trailingPE}}</td>
+                <td class="summary-score-value" data-number-format>{{annualDiv}}</td>
+                <td class="summary-score-value" data-percentage-format>{{roePercentage}}</td>
+                <td class="summary-score-value" data-percentage-format>{{ltgForecastPercentage}}</td>
+                <td class="summary-score-value" data-percentage-format>{{1MoReturnPercentage}}</td>
+              </tr>
+              <tr class="summary-score-table-top-space">
+                <td class="summary-score-label">Market Cap</td>
+                <td class="summary-score-label">52-Week Low</td>
+                <td class="summary-score-label">Forward PE</td>
+                <td class="summary-score-label">Dividend Yield</td>
+                <td class="summary-score-label cell-space">Annual Rev</td>
+                <td class="summary-score-label">Inst Own</td>
+                <td class="summary-score-label">3-Mo Return</td>
+              </tr>
+              <tr>
+                <td class="summary-score-value" data-average-format>{{marketCap}}</td>
+                <td class="summary-score-value" data-number-format>{{52WeekLow}}</td>
+                <td class="summary-score-value" data-number-format>{{forwardPE}}</td>
+                <td class="summary-score-value" data-percentage-format>{{dividendYieldPercentage}}</td>
+                <td class="summary-score-value" data-average-format>{{annualRev}}</td>
+                <td class="summary-score-value" data-percentage-format>{{instOwnPercentage}}</td>
+                <td class="summary-score-value" data-percentage-format>{{3MoReturn}}</td>
+              </tr>
+            </table>
+          </div>
+        </section>
+      </section>
+      <section class="section">
+        <div id="{{getPeerNameSectionName peerName "average-score"}}" class="section-content-title">
+          Average Score
+          {{{pdfAddPageItem id=(getPeerNameSectionName peerName "average-score")}}}
+        </div>
+        <div class="section-content section-top-space">
+          <div class="section-content-left">
+            <div class="clearfix">
+              <div class="average-score-value average-score-value-top-negative clearfix">
+                Average
+                <br />
+                score
+                <br />
+                <span class="average-score-value-number">
+                  {{getLastScoreOfPeer scoresByPeer peerName}}
+                </span>
+              </div>
+              <b>{{scoreOutlook}}:</b> {{scoreOutlookDescription}}
+            </div>
+            <div class="average-score-trend chart-container">
+              <canvas data-average-score-trend-chart data-main-peer-name="{{peerName}}"></canvas>
+            </div>
+          </div>
+          <div class="section-content-right">
+            <div class="average-score-subtitle">
+              <b>Score Averages</b>
+            </div>
+            <div class="average-score-inline-table">
+              <div>
+                <div class="average-score-inline-table-item">
+                  Investment Banking & Svcs. Group: <b>{{investmentBankingLastScore}}</b>
+                </div>
+                <div class="average-score-inline-table-item">
+                  Banking & Investment Svcs. Sector: <b>{{bankingInvestmentLastScore}}</b>
+                </div>
+              </div>
+              <div>
+                <div class="average-score-inline-table-item">
+                  Mid MarketCap: <b>{{midMarketCapLastScore}}</b>
+                </div>
+                <div class="average-score-inline-table-item">
+                  S&P 500 Index: <b>{{sp500IndexLastScore}}</b>
+                </div>
+              </div>
+            </div>
+            <table class="average-score-table">
+              <tr>
+                <th>Peers</th>
+                <th class="cell-number">-6M</th>
+                <th class="cell-number">-3M</th>
+                <th class="cell-number">-1M</th>
+                <th class="cell-current-score">Current</th>
+                <th class="cell-score-trend">1Y Trend</th>
+              </tr>
+              {{#each scoresByPeer}}
+              <tr class="{{addClassIfEqual @key ../peerName "main-peer"}}">
+                <td>{{@key}}</td>
+                <td class="cell-number">
+                  {{getPeerScoreAtTime ../scoresByPeer @key ../../exchangeDate 6}}
+                </td>
+                <td class="cell-number">
+                  {{getPeerScoreAtTime ../scoresByPeer @key ../../exchangeDate 3}}
+                </td>
+                <td class="cell-number">
+                  {{getPeerScoreAtTime ../scoresByPeer @key ../../exchangeDate 1}}
+                </td>
+                <td class="cell-current-score">
+                  <span class="cell-current-score-value">
+                    {{getPeerScoreAtTime ../scoresByPeer @key ../../exchangeDate}}
+                  </span>
+                </td>
+                <td class="cell-score-trend">
+                  <div class="average-score-peer-trend-chart-container chart-container">
+                    <canvas class="average-score-peer-trend-chart" data-main-peer-name="{{../peerName}}"
+                      data-peer-name="{{@key}}"></canvas>
+                  </div>
+                </td>
+              </tr>
+              {{/each}}
+            </table>
+          </div>
+        </div>
+      </section>
+    </section>
 
+    {{/each}}
+    <footer class="footer">
+      <section class="footer-content">
+        <section class="footer-legend">
+          <div class="footer-page-numbers">Page x of XXX
+          </div>
+          <div class="footer-copy">© 209999 jsreport. All rights reserved.</div>
+        </section>
+        <section class="footer-logo">
+          <img src="images/logo.png" />
+        </section>
+      </section>
+    </footer>
+</script>
+<script src="index.js">
 
-
-    //TODO wait for on ready and set RESPONSIVEPAPER Ready
-    let response = await fetch("assets/data.json");
-    response = await response.json();
-
-    Chart.plugins.unregister(ChartDataLabels)
-
-
-
-    var source = document.body.innerHTML;
-    var template = Handlebars.compile(source);
-    var html = template(response);
-    document.body.innerHTML = html;
-
-    const numberEls = document.querySelectorAll('[data-number-format]')
-    const percentageEls = document.querySelectorAll('[data-percentage-format]')
-    const averageEls = document.querySelectorAll('[data-average-format]')
-    const averageScoreTrendChartEls = document.querySelectorAll('[data-average-score-trend-chart]')
-    const scorePeerTrendChartEls = document.querySelectorAll('.average-score-peer-trend-chart')
-    const volumesChartEls = document.querySelectorAll('.scores-volume-chart')
-    const pricesChartEls = document.querySelectorAll('.scores-price-chart')
-    const averageScoreIndicatorChartEls = document.querySelectorAll('[data-average-score-indicator-chart]')
-
-
-    numberEls.forEach((el) => {
-      try {
-        const mantissa = el.dataset.mantissa != null ? parseInt(el.dataset.mantissa, 10) : 2
-        const trimMantissa = el.dataset.trimMantissa != null ? Boolean(parseInt(el.dataset.trimMantissa, 10)) : true
-
-        el.innerText = numbro(el.innerText).format({
-          thousandSeparated: true,
-          trimMantissa,
-          mantissa
-        })
-      } catch (err) {
-        console.error(err)
-      }
-    })
-
-    percentageEls.forEach((el) => {
-      try {
-        const mantissa = el.dataset.mantissa != null ? parseInt(el.dataset.mantissa, 10) : 2
-        const trimMantissa = el.dataset.trimMantissa != null ? Boolean(parseInt(el.dataset.trimMantissa, 10)) : true
-
-        el.innerText = numbro(el.innerText).format({
-          output: 'percent',
-          mantissa,
-          trimMantissa
-        })
-      } catch (err) {
-        console.error(err)
-      }
-    })
-    averageEls.forEach((el) => {
-      try {
-        el.innerText = numbro(el.innerText).format({
-          average: true,
-          mantissa: 1
-        }).toUpperCase()
-      } catch (err) {
-        console.error(err)
-      }
-    })
-  }
-  window.onload = function () {
-    main()
-  }
 </script>
 
 </html>
