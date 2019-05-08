@@ -22,8 +22,8 @@
 
 -->
   <!--css to handle rjs-page on body -->
-  <!-- <style>
-    html {
+  <style>
+    /* html {
       background-color: grey;
       margin: 0;
       padding: 0;
@@ -35,8 +35,17 @@
 
     body.rjs-page>script {
       display: none;
+    } */
+    /* .rjs-force-page-break {
+      width: 100%;
+      background-color: red;
     }
-  </style> -->
+
+    .rjs-force-page-break:after {
+      content: 'page break';
+      text-align: center;
+    } */
+  </style>
 </head>
 
 
@@ -50,19 +59,21 @@
     {{#if @index}}
     <div class="rjs-force-page-break"></div>
     {{/if}}
-    <header class="header">
-      <section class="header-content">
-        <section class="header-company">
-          <h1 class="header-title">{{company.fullName}} ({{company.abbreviation}})</h1>
-          <h2 class="header-subtitle">{{company.business}}</h2>
+
+    <section id="{{peerName}}" class="rjs-group">
+      <header class="header rjs-group-header">
+        <section class="header-content">
+          <section class="header-company">
+            <h1 class="header-title">{{company.fullName}} ({{company.abbreviation}})</h1>
+            <h2 class="header-subtitle">{{company.business}}</h2>
+            <h2 class="header-subtitle rjs-hide-on-first-page">(Continued)</h2>
+          </section>
+          <section class="header-legend">
+            <h1 class="header-title">Detailed Stock Report</h1>
+            <h2 class="header-subtitle">Report Date: {{formatReportDate}}</h2>
+          </section>
         </section>
-        <section class="header-legend">
-          <h1 class="header-title">Detailed Stock Report</h1>
-          <h2 class="header-subtitle">Report Date: {{formatReportDate}}</h2>
-        </section>
-      </section>
-    </header>
-    <section id="{{peerName}}">
+      </header>
       <section class="summary-score">
         <section class="summary-score-row">
           <div>
@@ -205,15 +216,381 @@
           </div>
         </div>
       </section>
+      <section class="section">
+        <div class="section-content">
+          <div class="section-content-left">
+            <div id="{{getPeerNameSectionName peerName "highlights"}}" class="section-content-title">
+              Highlights
+              {{{pdfAddPageItem id=(getPeerNameSectionName peerName "highlights")}}}
+            </div>
+            <div class="section-top-space">
+              <ul class="scores-highlights-list">
+                {{#each scoreHighlights}}
+                <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="section-content-right">
+            <div class="section-content-title">
+              Thomson Reuters I/B/E/S Mean
+            </div>
+            <div class="section-top-space">
+              <div class="scores-mean-recommendation">
+                <div class="scores-mean-recommendation-text">
+                  <span
+                    class="scores-mean-recommendation-action {{addAnalystsRecommendationClass analystsRecommendationAction}}">{{analystsRecommendationAction}}</span>
+                  <span>{{analystsCount}} Analysts</span>
+                </div>
+                <div class="scores-mean-recommendation-label">
+                  Mean recommendation from all analysts covering the company on a standardized 5-point scale.
+                </div>
+              </div>
+              <div class="scores-mean-recommendation-graphic">
+                <div
+                  class="scores-mean-recommendation-graphic-item scores-mean-recommendation-graphic-item-sell {{addClassIfEqual "Sell" analystsRecommendationAction "active"}}">
+                  <span>Sell</span>
+                </div>
+                <div
+                  class="scores-mean-recommendation-graphic-item scores-mean-recommendation-graphic-item-reduce {{addClassIfEqual "Reduce" analystsRecommendationAction "active"}}">
+                  <span>Reduce</span>
+                </div>
+                <div
+                  class="scores-mean-recommendation-graphic-item scores-mean-recommendation-graphic-item-hold {{addClassIfEqual "Hold" analystsRecommendationAction "active"}}">
+                  <span>Hold</span>
+                </div>
+                <div
+                  class="scores-mean-recommendation-graphic-item scores-mean-recommendation-graphic-item-buy {{addClassIfEqual "Buy" analystsRecommendationAction "active"}}">
+                  <span>Buy</span>
+                </div>
+                <div
+                  class="scores-mean-recommendation-graphic-item scores-mean-recommendation-graphic-item-strong-buy {{addClassIfEqual "Strong Buy" analystsRecommendationAction "active"}}">
+                  <span>
+                    Strong
+                    <br />
+                    Buy
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div id="{{getPeerNameSectionName peerName "prive-volume-charts"}}" class="section-content-title">
+          Price And Volume Charts
+          {{{pdfAddPageItem id=(getPeerNameSectionName peerName "prive-volume-charts")}}}
+        </div>
+        <div class="section-content section-top-space">
+          <div class="section-content-half">
+            <div class="scores-volume-chart-container chart-container">
+              <canvas class="scores-volume-chart" data-main-peer-name="{{peerName}}" data-past-years="1"></canvas>
+            </div>
+            <div class="scores-price-chart-container chart-container">
+              <canvas class="scores-price-chart" data-main-peer-name="{{peerName}}" data-past-years="1"
+                data-max-price-tick="2000000"></canvas>
+            </div>
+          </div>
+          <div class="section-content-half">
+            <div class="scores-volume-chart-container chart-container">
+              <canvas class="scores-volume-chart" data-main-peer-name="{{peerName}}" data-past-years="5"
+                data-step-size="10"></canvas>
+            </div>
+            <div class="scores-price-chart-container chart-container">
+              <canvas class="scores-price-chart" data-main-peer-name="{{peerName}}" data-past-years="5" data-no-months-axe="1"
+                data-max-price-tick="5000000"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div id="{{getPeerNameSectionName peerName "business-summary"}}" class="section-content-title">
+          Business Summary
+          {{{pdfAddPageItem id=(getPeerNameSectionName peerName "business-summary")}}}
+        </div>
+        <div class="section-content section-text section-top-space">
+          {{businessSummary}}
+        </div>
+      </section>
+      <div class="rjs-force-page-break">
+      </div>
+      <section class="section">
+        <div id="{{getPeerNameSectionName peerName "indicator-components"}}" class="section-content-title">
+          Indicator Components
+          {{{pdfAddPageItem id=(getPeerNameSectionName peerName "indicator-components")}}}
+        </div>
+        <div class="section-top-space">
+          <div class="clearfix">
+            <div class="average-score-value average-score-value-fleft clearfix">
+              Average
+              <br />
+              score
+              <br />
+              <span class="average-score-value-number">
+                {{getLastScoreOfPeer scoresByPeer peerName}}
+              </span>
+            </div>
+            <span class="section-text">
+              The <b>Average Score</b> combines the quantitative analysis of six widely-used investment decision making tools:
+              Earnings, Fundamental, Relative Valuation, Risk, Price Momentum and Insider Trading.
+              A simple average of the underlying component ratings is normally distributed to rank stocks on a 1-10 scale (10
+              being awarded to the most favorable). These factors may be evaluated differently using alternative methodologies
+              and the importance of individual factors varies across industries, market capitalization and investment styles.
+              Additional criteria should always be used to evaluate a stock.
+            </span>
+          </div>
+          <div class="average-score-indicator chart-container">
+            <canvas data-average-score-indicator-chart data-main-peer-name="{{peerName}}"></canvas>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div id="{{getPeerNameSectionName peerName "optimized-score"}}" class="section-content-title">
+          Optimized Score
+          {{{pdfAddPageItem id=(getPeerNameSectionName peerName "optimized-score")}}}
+        </div>
+        <div class="section-content section-top-space">
+          <div class="section-content-left">
+            <div class="clearfix">
+              <div class="average-score-value average-score-value-fleft clearfix">
+                Optimized
+                <br />
+                score
+                <br />
+                <span class="average-score-value-number">
+                  {{getLastScoreOfPeer scoresByPeer peerName}}
+                </span>
+              </div>
+              <div class="section-text optimized-score-short-description">
+                <span>{{optimizedScoreShortDescription}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="section-content-right">
+            <div class="section-text">
+              As an alternative approach to equally weighting each of the six factors, independent research firm, Verus
+              Analytics, conducted a backtest to empirically determine the optimal factor blend. Results and weighting vary
+              across four different market capitalization categories. For large cap stocks, price momentum and insider trading
+              historically provided the most explanatory power among the six factors and are weighted heavily in the current
+              optimized score. Among the small cap universe, the earnings and fundamental factors joined with the insider
+              trading and price momentum to explain returns.
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div id="{{getPeerNameSectionName peerName "peer-analysis"}}" class="section-content-title clearfix">
+          Peer Analysis
+          {{{pdfAddPageItem id=(getPeerNameSectionName peerName "peer-analysis")}}}
+          <span class="section-content-subtitle">
+            Currency in {{currency}}
+          </span>
+        </div>
+        <div class="section-top-space">
+          <table class="peer-analysis-table">
+            <tr>
+              <td class="cell-tcenter" colspan="2"></td>
+              <td class="cell-group cell-tcenter" colspan="5">PRICE MOMENTUM</td>
+              <td class="cell-group cell-tcenter" colspan="2">VALUATION</td>
+              <td class="cell-group cell-tcenter" colspan="2">FUNDAMENTAL</td>
+              <td class="cell-group cell-tcenter" colspan="3">ANALYSTS</td>
+            </tr>
+            <tr class="heading-row">
+              <td class="cell-tcenter">Average<br />Score</td>
+              <td class="cell-tleft">Ticker</td>
+              <td class="cell-tright">Price<br />({{../exchangeDate}})</td>
+              <td class="cell-tright">1-Mo<br />Return</td>
+              <td class="cell-tright">3-Mo<br />Return</td>
+              <td class="cell-tright">1-Yr<br />Return</td>
+              <td class="cell-tright">Market<br />Cap</td>
+              <td class="cell-tright">Trailing<br />PE</td>
+              <td class="cell-tright">Forward<br />PE</td>
+              <td class="cell-tright">Dividend<br />Yield</td>
+              <td class="cell-tright">Net<br />Margin</td>
+              <td class="cell-tright">LTG<br />Forecast</td>
+              <td class="cell-tleft">I/B/E/S<br />Mean</td>
+              <td class="cell-tright"># of<br />Analysts</td>
+            </tr>
+            {{#each analysisByPeer}}
+            <tr class="content-row {{addClassIfEqual ticker ../peerName "selected-row"}}">
+              <td class="cell-average-score cell-tcenter">
+                {{#isEmpty averageScore}}
+                <span class="empty-value">--</span>
+                {{else}}
+                {{averageScore}}
+                {{/isEmpty}}
+              </td>
+              <td class="cell-tleft">
+                {{ticker}}
+              </td>
+              <td class="cell-tright">
+                {{#isEmpty price}}
+                <span class="empty-value">--</span>
+                {{else}}
+                <span data-number-format data-mantissa="2" data-trim-mantissa="0">{{price}}</span>
+                {{/isEmpty}}
+              </td>
+              <td
+                class="cell-tright {{addClassIfEqual (isPositive 1MoReturnPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                {{#isEmpty 1MoReturnPercentage}}
+                <span class="empty-value">--</span>
+                {{else}}
+                <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{1MoReturnPercentage}}</span>
+                {{/isEmpty}}
+              </td>
+              <td
+                class="cell-tright {{addClassIfEqual (isPositive 3MoReturnPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                {{#isEmpty 3MoReturnPercentage}}
+                <span class="empty-value">--</span>
+                {{else}}
+                <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{3MoReturnPercentage}}</span>
+                {{/isEmpty}}
+              </td>
+              <td
+                class="cell-tright {{addClassIfEqual (isPositive 1YrReturnPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                {{#isEmpty 1YrReturnPercentage}}
+                <span class="empty-value">--</span>
+                {{else}}
+                <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{1YrReturnPercentage}}</span>
+                {{/isEmpty}}
+              </td>
+              <td class="cell-tright">
+                <span data-average-format>{{marketCap}}</span>
+              </td>
+              <td class="cell-tright">
+                <span data-number-format data-mantissa="1" data-trim-mantissa="0">{{trailingPE}}</span>
+              </td>
+              <td class="cell-tright">
+                <span data-number-format data-mantissa="1" data-trim-mantissa="0">{{forwardPE}}</span>
+              </td>
+              <td class="cell-tright">
+                <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{dividendYieldPercentage}}</span>
+              </td>
+              <td class="cell-tright">
+                <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{netMarginPercentage}}</span>
+              </td>
+              <td
+                class="cell-tright {{addClassIfEqual (isPositive ltgForecastPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                {{#isEmpty ltgForecastPercentage}}
+                <span class="empty-value">--</span>
+                {{else}}
+                <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{ltgForecastPercentage}}</span>
+                {{/isEmpty}}
+              </td>
+              <td class="cell-tleft {{addAnalystsRecommendationClass analystsRecommendationAction}}">
+                {{analystsRecommendationAction}}
+              </td>
+              <td class="cell-tright">
+                <span data-number-format data-mantissa="1">{{analystsCount}}</span>
+              </td>
+            </tr>
+            {{/each}}
+            {{#with (getAverageResultsForAnalysis analysisByPeer)}}
+            <tr class="content-row average-row">
+              <td class="cell-average-score cell-tcenter">
+                {{#isEmpty averageScore}}
+                <span class="empty-value">--</span>
+                {{else}}
+                {{averageScore}}
+                {{/isEmpty}}
+              </td>
+              <td class="cell-tleft">
+                {{ticker}}
+              </td>
+              <td class="cell-tright">
+                {{#isEmpty price}}
+                <span class="empty-value">--</span>
+                {{else}}
+                <span data-number-format data-mantissa="2" data-trim-mantissa="0">{{price}}</span>
+                {{/isEmpty}}
+              </td>
+              <td
+                class="cell-tright {{addClassIfEqual (isPositive 1MoReturnPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                {{#isEmpty 1MoReturnPercentage}}
+                <span class="empty-value">--</span>
+                {{else}}
+                <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{1MoReturnPercentage}}</span>
+                {{/isEmpty}}
+              </td>
+              <td
+                class="cell-tright {{addClassIfEqual (isPositive 3MoReturnPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                {{#isEmpty 3MoReturnPercentage}}
+                <span class="empty-value">--</span>
+                {{else}}
+                <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{3MoReturnPercentage}}</span>
+                {{/isEmpty}}
+              </td>
+              <td
+                class="cell-tright {{addClassIfEqual (isPositive 1YrReturnPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                {{#isEmpty 1YrReturnPercentage}}
+                <span class="empty-value">--</span>
+                {{else}}
+                <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{1YrReturnPercentage}}</span>
+                {{/isEmpty}}
+              </td>
+              <td class="cell-tright">
+                <span data-average-format>{{marketCap}}</span>
+              </td>
+              <td class="cell-tright">
+                <span data-number-format data-mantissa="1" data-trim-mantissa="0">{{trailingPE}}</span>
+              </td>
+              <td class="cell-tright">
+                <span data-number-format data-mantissa="1" data-trim-mantissa="0">{{forwardPE}}</span>
+              </td>
+              <td class="cell-tright">
+                <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{dividendYieldPercentage}}</span>
+              </td>
+              <td class="cell-tright">
+                <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{netMarginPercentage}}</span>
+              </td>
+              <td
+                class="cell-tright {{addClassIfEqual (isPositive ltgForecastPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                {{#isEmpty ltgForecastPercentage}}
+                <span class="empty-value">--</span>
+                {{else}}
+                <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{ltgForecastPercentage}}</span>
+                {{/isEmpty}}
+              </td>
+              <td class="cell-tleft {{addAnalystsRecommendationClass analystsRecommendationAction}}">
+                {{analystsRecommendationAction}}
+              </td>
+              <td class="cell-tright">
+                <span data-number-format data-mantissa="1">{{analystsCount}}</span>
+              </td>
+            </tr>
+            {{/with}}
+          </table>
+        </div>
+      </section>
+      <section class="section">
+        <div id="{{getPeerNameSectionName peerName "peer-companies"}}" class="section-content-title clearfix">
+          Peer Companies
+          {{{pdfAddPageItem id=(getPeerNameSectionName peerName "peer-companies")}}}
+        </div>
+        <div class="section-top-space">
+          <table class="peer-companies-table">
+            {{#each (getItemsGroupedBy peerCompanies 2)}}
+            <tr>
+              {{#each this}}
+              <td>{{name}}</td>
+              <td>{{companyName}}</td>
+              {{/each}}
+            </tr>
+            {{/each}}
+          </table>
+        </div>
+      </section>
+
     </section>
 
     {{/each}}
-    <footer class="footer">
+    <footer class="footer rjs-page-footer">
       <section class="footer-content">
         <section class="footer-legend">
-          <div class="footer-page-numbers">Page x of XXX
+          <div class="footer-page-numbers">Page <span class="rjs-page-number">1</span> of
+          <span class="rjs-page-count">1</span>
           </div>
-          <div class="footer-copy">© 209999 jsreport. All rights reserved.</div>
+          <div class="footer-copy">© {{getCurrentYear}} jsreport. All rights reserved.</div>
         </section>
         <section class="footer-logo">
           <img src="images/logo.png" />

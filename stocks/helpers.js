@@ -185,3 +185,7 @@ Handlebars.registerHelper('getItemsGroupedBy', function (items, groupCount) {
 Handlebars.registerHelper('formatReportDate', function (date) {
   return moment(date).format('YYYY MMMM DD')
 })
+
+Handlebars.registerHelper('getCurrentYear', function () {
+  return new Date().getFullYear()
+})
