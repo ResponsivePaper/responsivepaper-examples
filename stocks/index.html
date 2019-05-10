@@ -8,12 +8,15 @@
   <link rel="stylesheet" href="assets/header-footer.css" />
   <link rel="stylesheet" href="assets/main.css" />
   <link rel="stylesheet" href="https://www.responsivepaper.com/devtools/reportsjs.designer.css" />
+  <!-- <link rel="stylesheet" href="/build/reportsjs.min.css" /> -->
+
   <script src="https://unpkg.com/numbro@2.1.2/dist/numbro.min.js"></script>
   <script src="https://unpkg.com/chart.js@2.7.3/dist/Chart.min.js"></script>
   <script src="https://unpkg.com/chartjs-plugin-datalabels@0.6.0/dist/chartjs-plugin-datalabels.min.js"></script>
   <script src="https://unpkg.com/handlebars@latest/dist/handlebars.min.js"></script>
   <script src="https://unpkg.com/moment@latest/min/moment.min.js"></script>
   <script src="helpers.js"></script>
+  <!-- <script src="/build/reportsjs-raw.js"></script> -->
   <!--OPTIONAL Handlebars loader-->
 
 
@@ -45,6 +48,10 @@
       content: 'page break';
       text-align: center;
     } */
+
+    .rjs-page {
+      padding: 35px !important;
+    }
   </style>
 </head>
 
@@ -66,7 +73,7 @@
           <section class="header-company">
             <h1 class="header-title">{{company.fullName}} ({{company.abbreviation}})</h1>
             <h2 class="header-subtitle">{{company.business}}</h2>
-            <h2 class="header-subtitle rjs-hide-on-first-page">(Continued)</h2>
+            <!-- <h2 class="header-subtitle rjs-hide-on-first-page">(Continued)</h2> -->
           </section>
           <section class="header-legend">
             <h1 class="header-title">Detailed Stock Report</h1>
@@ -133,7 +140,7 @@
           </div>
         </section>
       </section>
-      <section class="section">
+      <section class="section rjs-keep-together">
         <div id="{{getPeerNameSectionName peerName "average-score"}}" class="section-content-title">
           Average Score
           {{{pdfAddPageItem id=(getPeerNameSectionName peerName "average-score")}}}
@@ -216,7 +223,7 @@
           </div>
         </div>
       </section>
-      <section class="section">
+      <section class="section rjs-keep-together">
         <div class="section-content">
           <div class="section-content-left">
             <div id="{{getPeerNameSectionName peerName "highlights"}}" class="section-content-title">
@@ -276,7 +283,7 @@
           </div>
         </div>
       </section>
-      <section class="section">
+      <section class="section  rjs-keep-together">
         <div id="{{getPeerNameSectionName peerName "prive-volume-charts"}}" class="section-content-title">
           Price And Volume Charts
           {{{pdfAddPageItem id=(getPeerNameSectionName peerName "prive-volume-charts")}}}
@@ -303,7 +310,7 @@
           </div>
         </div>
       </section>
-      <section class="section">
+      <section class="section rjs-keep-together">
         <div id="{{getPeerNameSectionName peerName "business-summary"}}" class="section-content-title">
           Business Summary
           {{{pdfAddPageItem id=(getPeerNameSectionName peerName "business-summary")}}}
@@ -312,9 +319,7 @@
           {{businessSummary}}
         </div>
       </section>
-      <div class="rjs-force-page-break">
-      </div>
-      <section class="section">
+      <section class="section  rjs-keep-together">
         <div id="{{getPeerNameSectionName peerName "indicator-components"}}" class="section-content-title">
           Indicator Components
           {{{pdfAddPageItem id=(getPeerNameSectionName peerName "indicator-components")}}}
@@ -344,7 +349,7 @@
           </div>
         </div>
       </section>
-      <section class="section">
+      <section class="section rjs-keep-together">
         <div id="{{getPeerNameSectionName peerName "optimized-score"}}" class="section-content-title">
           Optimized Score
           {{{pdfAddPageItem id=(getPeerNameSectionName peerName "optimized-score")}}}
@@ -378,7 +383,7 @@
           </div>
         </div>
       </section>
-      <section class="section">
+      <section class="section rjs-keep-together">
         <div id="{{getPeerNameSectionName peerName "peer-analysis"}}" class="section-content-title clearfix">
           Peer Analysis
           {{{pdfAddPageItem id=(getPeerNameSectionName peerName "peer-analysis")}}}
@@ -562,7 +567,7 @@
           </table>
         </div>
       </section>
-      <section class="section">
+      <section class="section rjs-keep-together">
         <div id="{{getPeerNameSectionName peerName "peer-companies"}}" class="section-content-title clearfix">
           Peer Companies
           {{{pdfAddPageItem id=(getPeerNameSectionName peerName "peer-companies")}}}

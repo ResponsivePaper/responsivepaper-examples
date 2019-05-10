@@ -808,6 +808,18 @@ function ViewModel() {
     this.formatText()
     this.formatCharts()
     window.RESPONSIVE_PAPER_READY_TO_RENDER = true;
+    // var opt = {
+    //   format: 'legal',
+    //   // orientation: 'landscape',
+    //   showLoading: false,
+    //   hideSource: true,
+    //   //markdownFn: window.marked,
+    //   singlePagePreview: false,
+    //   paperSizeSelector: false
+    //   // chromePdfOptionsPropertyName: "JSREPORT_CHROME_PDF_OPTIONS",
+    //   // renderCompletePropertyName: "JSREPORT_READY_TO_START"
+    // };
+    // rjs.preview(null, opt);
 
 
   }
