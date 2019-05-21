@@ -790,36 +790,74 @@ function ViewModel() {
 
 
   }
+  this.setTocData = function (companies) {
+    if (!Array.isArray(companies)) {
+      return
+    }
+    this.tocData = companies.map((item) => {
+      return {
+        id: item.peerName,
+        title: `${item.company.fullName} - ${item.company.abbreviation}`,
+        chapters: [{
+          id: `${item.peerName}-average-score`,
+          title: 'Average Score'
+        }, {
+          id: `${item.peerName}-highlights`,
+          title: 'Highlights'
+        }, {
+          id: `${item.peerName}-price-volume-charts`,
+          title: 'Price and Volume Charts'
+        }, {
+          id: `${item.peerName}-business-summary`,
+          title: 'Business Summary'
+        }, {
+          id: `${item.peerName}-indicator-components`,
+          title: 'Indicator Components'
+        }, {
+          id: `${item.peerName}-optimized-score`,
+          title: 'Optimized Score'
+        }, {
+          id: `${item.peerName}-peer-analysis`,
+          title: 'Peer Analysis'
+        }, {
+          id: `${item.peerName}-peer-companies`,
+          title: 'Peer Companies'
+        }]
+      }
+    })
+
+
+  }
   this.init = async function () {
 
 
 
-    //TODO wait for on ready and set RESPONSIVEPAPER Ready
     let response = await fetch("assets/data.json");
     response = await response.json();
     var source = document.getElementById("reportTemplate").innerHTML;
     var template = Handlebars.compile(source);
-    var html = template(response);
     this.companies = response.companies
+    this.setTocData(this.companies)
     this.exchangeDateStr = response.exchangeDate
+    var html = template(this);
 
     document.getElementsByClassName('rjs-page')[0].innerHTML = html
 
     this.formatText()
     this.formatCharts()
     window.RESPONSIVE_PAPER_READY_TO_RENDER = true;
-    // var opt = {
-    //   format: 'legal',
-    //   // orientation: 'landscape',
-    //   showLoading: false,
-    //   hideSource: true,
-    //   //markdownFn: window.marked,
-    //   singlePagePreview: false,
-    //   paperSizeSelector: false
-    //   // chromePdfOptionsPropertyName: "JSREPORT_CHROME_PDF_OPTIONS",
-    //   // renderCompletePropertyName: "JSREPORT_READY_TO_START"
-    // };
-    // rjs.preview(null, opt);
+    var opt = {
+      format: 'a4',
+      orientation: 'portrait',
+      showLoading: false,
+      hideSource: true,
+      //markdownFn: window.marked,
+      singlePagePreview: false,
+      paperSizeSelector: false
+      // chromePdfOptionsPropertyName: "JSREPORT_CHROME_PDF_OPTIONS",
+      // renderCompletePropertyName: "JSREPORT_READY_TO_START"
+    };
+    rjs.preview(null, opt);
 
 
   }
