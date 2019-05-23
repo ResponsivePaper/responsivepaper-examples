@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<!-- 
+<!--
 Gist is here:
 https://gist.github.com/charlieknoll/c6b60d8417c5ca00491c4f61c8630628
 use rawgit.com for url
@@ -18,21 +18,25 @@ a broken version on Kendo is here (add extra records): https://dojo.telerik.com/
     <title></title>
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.common-material.min.css" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.material.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.material.mobile.min.css" />
-    <link rel="stylesheet" href="https://combinatronics.com/ResponsivePaper/responsivepaper-design/master/css/reportsjs.designer.css" />
+    <!-- <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.material.mobile.min.css" /> -->
+    <!-- <link rel="stylesheet"
+        href="https://combinatronics.com/ResponsivePaper/responsivepaper-design/master/css/reportsjs.designer.css" /> -->
+    <!-- <link rel="stylesheet" href="http://localhost:8081/build/reportsjs.min.css" /> -->
+
 
     <script src="https://kendo.cdn.telerik.com/2018.2.516/js/jquery.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2018.2.516/js/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2018.2.516/js/kendo.all.min.js"></script>
 
-
+    <!-- <script src="http://localhost:8081/build/reportsjs-raw.js"></script> -->
 </head>
 
 <body>
     <div class="rjs-page">
         <div class="pdf-header rjs-page-header">
             <span class="company-logo">
-                <img src="https://demos.telerik.com/kendo-ui/content/web/framework/company-logo.png" /> Northwind Corporation
+                <img src="https://demos.telerik.com/kendo-ui/content/web/framework/company-logo.png" /> Northwind
+                Corporation
             </span>
             <span class="invoice-number">Invoice #23543</span>
         </div>
@@ -193,6 +197,20 @@ a broken version on Kendo is here (add extra records): https://dojo.telerik.com/
                         .addClass(this.value());
                 }
             });
+            window.RESPONSIVE_PAPER_READY_TO_RENDER = true;
+            // var opt = {
+            //     format: 'a4',
+            //     orientation: 'portrait',
+            //     showLoading: false,
+            //     hideSource: true,
+            //     //markdownFn: window.marked,
+            //     singlePagePreview: false,
+            //     paperSizeSelector: false
+            //     // chromePdfOptionsPropertyName: "JSREPORT_CHROME_PDF_OPTIONS",
+            //     // renderCompletePropertyName: "JSREPORT_READY_TO_START"
+            // };
+            // rjs.preview(null, opt);
+
         });
     </script>
     <style>
