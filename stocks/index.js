@@ -857,7 +857,7 @@ function ViewModel() {
       // chromePdfOptionsPropertyName: "JSREPORT_CHROME_PDF_OPTIONS",
       // renderCompletePropertyName: "JSREPORT_READY_TO_START"
     };
-    rjs.preview(null, opt);
+    // rjs.preview(null, opt);
 
 
   }
