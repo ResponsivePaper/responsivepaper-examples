@@ -2,14 +2,11 @@
 
 <head>
   <!--OPTIONAL Design Time and themes-->
-
+  <title>Stock Report</title>
   <link rel="stylesheet" href="assets/cover.css" />
   <link rel="stylesheet" href="assets/toc.css" />
   <link rel="stylesheet" href="assets/header-footer.css" />
   <link rel="stylesheet" href="assets/main.css" />
-  <!-- <link rel="stylesheet" href="https://www.responsivepaper.com/devtools/reportsjs.designer.css" /> -->
-  <!-- <link rel="stylesheet" href="http://localhost:8081/build/reportsjs.designer.css" /> -->
-  <!-- <link rel="stylesheet" href="http://localhost:8081/build/reportsjs.min.css" /> -->
 
   <script src="https://unpkg.com/numbro@2.1.2/dist/numbro.min.js"></script>
   <script src="https://unpkg.com/chart.js@2.7.3/dist/Chart.min.js"></script>
@@ -18,26 +15,26 @@
   <script src="https://unpkg.com/moment@latest/min/moment.min.js"></script>
   <script src="helpers.js"></script>
   <!-- <script src="http://localhost:8081/build/reportsjs-raw.js"></script> -->
+  <!-- <script src="http://localhost:8081/build/reportsjs.js"></script> -->
 
   <style>
     /* Override page margins at design time*/
-    .rjs-page {
+    .rp-page {
       padding: 35px !important;
     }
 
-    .rjs-full-page {
+    .rp-full-page {
       margin: -35px !important;
     }
-
-    /* .rjs-page.rjs-ps-letter .rjs-full-page {
-      width: 8.5in;
-    } */
   </style>
+  <!-- <link rel="stylesheet" href="https://www.responsivepaper.com/devtools/responsive-paper.designer.css" /> -->
+  <link rel="stylesheet" href="http://localhost:8081/build/responsive-paper.designer.css" />
+  <!-- <link rel="stylesheet" href="http://localhost:8081/build/reportsjs.min.css" /> -->
 </head>
 
 
 <body>
-  <div class='rjs-page'>
+  <div class='rp-page'>
 
   </div>
 
@@ -45,7 +42,7 @@
 </body>
 <script id="reportTemplate" type="text/x-handlebars-template">
 
-<main class="cover rjs-full-page">
+<main class="cover rp-full-page rp-contain">
   <div class="cover-header">
     <div class="cover-header-content">
       <div>
@@ -68,8 +65,7 @@
     </div>
   </div>
 </main>
-<!-- <div class="rjs-force-page-break">TEST</div> -->
-<div class="rjs-force-page-break"></div>
+<div class="rp-force-page-break"></div>
 <section class="toc">
       <h1>Table of Contents</h1>
       <ul>
@@ -83,7 +79,7 @@
               <div class="toc-line-separator"></div>
             </div>
             <a class="" href="#{{id}}">
-              <span class="rjs-id-page-number" data-id="{{id}}">1</span>
+              <span class="rp-id-page-number" data-id="{{id}}">1</span>
             </a>
           </div>
         </li>
@@ -98,7 +94,7 @@
                       <div class="toc-line-separator"></div>
                     </div>
                     <a class="" href="#{{id}}">
-                      <span class="rjs-id-page-number" data-id="{{id}}">1</span>
+                      <span class="rp-id-page-number" data-id="{{id}}">1</span>
                     </a>
                   </div>
                 </li>
@@ -107,19 +103,16 @@
         {{/each}}
       </ul>
     </section>
-    <div class="rjs-force-page-break"></div>
     {{#each companies}}
-    {{#if @index}}
-    <div class="rjs-force-page-break"></div>
-    {{/if}}
+    <div class="rp-force-page-break"></div>
 
-    <section id="{{peerName}}" class="rjs-group">
-      <header class="header rjs-group-header">
+    <section id="{{peerName}}" class="rp-group">
+      <header class="header rp-group-header">
         <section class="header-content">
           <section class="header-company">
-            <h1 class="header-title">{{company.fullName}} ({{company.abbreviation}})<span class="header-subtitle rjs-hide-on-first-page">(Continued)</span></h1>
+            <h1 class="header-title">{{company.fullName}} ({{company.abbreviation}})<span class="header-subtitle rp-hide-on-first-page">(Continued)</span></h1>
             <h2 class="header-subtitle">{{company.business}}</h2>
-            <!-- <h2 class="header-subtitle rjs-hide-on-first-page">(Continued)</h2> -->
+            <!-- <h2 class="header-subtitle rp-hide-on-first-page">(Continued)</h2> -->
           </section>
           <section class="header-legend">
             <h1 class="header-title">Detailed Stock Report</h1>
@@ -186,7 +179,7 @@
           </div>
         </section>
       </section>
-      <section class="section rjs-keep-together">
+      <section class="section rp-keep-together">
         <div id="{{getPeerNameSectionName peerName "average-score"}}" class="section-content-title">
           Average Score
         </div>
@@ -268,7 +261,7 @@
           </div>
         </div>
       </section>
-      <section class="section rjs-keep-together">
+      <section class="section rp-keep-together">
         <div class="section-content">
           <div class="section-content-left">
             <div id="{{getPeerNameSectionName peerName "highlights"}}" class="section-content-title">
@@ -327,7 +320,7 @@
           </div>
         </div>
       </section>
-      <section class="section  rjs-keep-together">
+      <section class="section  rp-keep-together">
         <div id="{{getPeerNameSectionName peerName "price-volume-charts"}}" class="section-content-title">
           Price And Volume Charts
         </div>
@@ -353,7 +346,7 @@
           </div>
         </div>
       </section>
-      <section class="section rjs-keep-together">
+      <section class="section rp-keep-together">
         <div id="{{getPeerNameSectionName peerName "business-summary"}}" class="section-content-title">
           Business Summary
         </div>
@@ -361,7 +354,7 @@
           {{businessSummary}}
         </div>
       </section>
-      <section class="section  rjs-keep-together">
+      <section class="section  rp-keep-together">
         <div id="{{getPeerNameSectionName peerName "indicator-components"}}" class="section-content-title">
           Indicator Components
         </div>
@@ -390,7 +383,7 @@
           </div>
         </div>
       </section>
-      <section class="section rjs-keep-together">
+      <section class="section rp-keep-together">
         <div id="{{getPeerNameSectionName peerName "optimized-score"}}" class="section-content-title">
           Optimized Score
         </div>
@@ -423,7 +416,7 @@
           </div>
         </div>
       </section>
-      <section class="section rjs-keep-together">
+      <section class="section rp-keep-together">
         <div id="{{getPeerNameSectionName peerName "peer-analysis"}}" class="section-content-title clearfix">
           Peer Analysis
           <span class="section-content-subtitle">
@@ -606,7 +599,7 @@
           </table>
         </div>
       </section>
-      <section class="section rjs-keep-together">
+      <section class="section rp-keep-together">
         <div id="{{getPeerNameSectionName peerName "peer-companies"}}" class="section-content-title clearfix">
           Peer Companies
         </div>
@@ -629,11 +622,11 @@
     {{/each}}
 
 
-    <footer class="footer rjs-page-footer">
+    <footer class="footer rp-page-footer">
       <section class="footer-content">
         <section class="footer-legend">
-          <div class="footer-page-numbers">Page <span class="rjs-page-number">1</span> of
-          <span class="rjs-page-count">1</span>
+          <div class="footer-page-numbers">Page <span class="rp-page-number">1</span> of
+          <span class="rp-page-count">1</span>
           </div>
           <div class="footer-copy">© {{getCurrentYear}} responsivepaper.com All rights reserved.</div>
         </section>

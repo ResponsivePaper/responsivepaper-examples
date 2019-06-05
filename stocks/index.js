@@ -841,13 +841,13 @@ function ViewModel() {
     this.exchangeDateStr = response.exchangeDate
     var html = template(this);
 
-    document.getElementsByClassName('rjs-page')[0].innerHTML = html
+    document.getElementsByClassName('rp-page')[0].innerHTML = html
 
     this.formatText()
     this.formatCharts()
     window.RESPONSIVE_PAPER_READY_TO_RENDER = true;
     var opt = {
-      format: 'a4',
+      format: 'a5',
       orientation: 'portrait',
       showLoading: false,
       hideSource: true,
@@ -857,7 +857,7 @@ function ViewModel() {
       // chromePdfOptionsPropertyName: "JSREPORT_CHROME_PDF_OPTIONS",
       // renderCompletePropertyName: "JSREPORT_READY_TO_START"
     };
-    // rjs.preview(null, opt);
+    //rp.preview(null, opt);
 
 
   }
