@@ -847,8 +847,8 @@ function ViewModel() {
     this.formatCharts()
     window.RESPONSIVE_PAPER_READY_TO_RENDER = true;
     var opt = {
-      format: 'a5',
-      orientation: 'portrait',
+      format: 'letter',
+      //orientation: 'portrait',
       showLoading: false,
       hideSource: true,
       //markdownFn: window.marked,
