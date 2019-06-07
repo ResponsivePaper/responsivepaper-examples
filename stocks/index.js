@@ -846,19 +846,6 @@ function ViewModel() {
     this.formatText()
     this.formatCharts()
     window.RESPONSIVE_PAPER_READY_TO_RENDER = true;
-    var opt = {
-      format: 'letter',
-      //orientation: 'portrait',
-      showLoading: false,
-      hideSource: true,
-      //markdownFn: window.marked,
-      singlePagePreview: false,
-      paperSizeSelector: false
-      // chromePdfOptionsPropertyName: "JSREPORT_CHROME_PDF_OPTIONS",
-      // renderCompletePropertyName: "JSREPORT_READY_TO_START"
-    };
-    //rp.preview(null, opt);
-
 
   }
 

@@ -19,65 +19,23 @@ a broken version on Kendo is here (add extra records): https://dojo.telerik.com/
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.common-material.min.css" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.material.min.css" />
     <!-- <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.material.mobile.min.css" /> -->
-    <!-- <link rel="stylesheet"
-        href="https://combinatronics.com/ResponsivePaper/responsivepaper-design/master/css/reportsjs.designer.css" /> -->
-    <!-- <link rel="stylesheet" href="http://localhost:8081/build/reportsjs.min.css" /> -->
+    <link rel="stylesheet" href="https://www.responsivepaper.com/devtools/responsive-paper.designer.css" />
 
 
     <script src="https://kendo.cdn.telerik.com/2018.2.516/js/jquery.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2018.2.516/js/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2018.2.516/js/kendo.all.min.js"></script>
+    <script src="http://localhost:8081/build/reportsjs-debug.js"></script>
 
-    <!-- <script src="http://localhost:8081/build/reportsjs-raw.js"></script> -->
 </head>
 
 <body>
-    <div class="rjs-page">
-        <div class="pdf-header rjs-page-header">
-            <span class="company-logo">
-                <img src="https://demos.telerik.com/kendo-ui/content/web/framework/company-logo.png" /> Northwind
-                Corporation
-            </span>
-            <span class="invoice-number">Invoice #23543</span>
-        </div>
-
-        <div class="addresses">
-            <div class="for">
-                <h3>Invoice For</h3>
-                <p>
-                    Antonio Moreno
-                    <br /> Naucalpan de Juárez
-                    <br /> México D.F., Mexico, 53500
-                </p>
-            </div>
-
-            <div class="from">
-                <h3>From</h3>
-                <p>
-                    Hanna Moos
-                    <br /> Lützowplatz 456
-                    <br /> Berlin, Germany, 10785
-                </p>
-                <p>
-                    Invoice ID: 23543
-                    <br /> Invoice Date: 12.03.2014
-                    <br /> Due Date: 27.03.2014
-                </p>
-            </div>
-        </div>
-        <div class="pdf-body">
-            <div id="grid"></div>
-            <p class="signature">
-                Signature: ________________
-                <br />
-                <br /> Date: 12.03.2014
-            </p>
-        </div>
-        <div class="pdf-footer rjs-page-footer">
+    <div class="rp-page rp-ps-legal-ls">
+        <div class="pdf-footer rp-page-footer">
             <div class="float-right text-right" style="margin-top: 2.5em">
                 Powered by &copy; 2019 responsivepaper.com &nbsp; Page
-                <span class="rjs-page-number">1</span> of
-                <span class="rjs-page-count">1</span>
+                <span class="rp-page-number">1</span> of
+                <span class="rp-page-count">1</span>
             </div>
 
 
@@ -87,8 +45,52 @@ a broken version on Kendo is here (add extra records): https://dojo.telerik.com/
                 <br /> Berlin, Germany, 10785
             </div>
         </div>
-    </div>
+        <div class="pdf-header rp-page-header">
+            <span class="company-logo">
+                <img src="https://demos.telerik.com/kendo-ui/content/web/framework/company-logo.png" /> Northwind
+                Corporation
+            </span>
+            <span class="invoice-number">Invoice #23543</span>
+        </div>
+        <div class="rp1-page">
 
+
+            <div class="addresses">
+                <div class="for">
+                    <h3>Invoice For</h3>
+                    <p>
+                        Antonio Moreno
+                        <br /> Naucalpan de Juárez
+                        <br /> México D.F., Mexico, 53500
+                    </p>
+                </div>
+
+                <div class="from">
+                    <h3>From</h3>
+                    <p>
+                        Hanna Moos
+                        <br /> Lützowplatz 456
+                        <br /> Berlin, Germany, 10785
+                    </p>
+                    <p>
+                        Invoice ID: 23543
+                        <br /> Invoice Date: 12.03.2014
+                        <br /> Due Date: 27.03.2014
+                    </p>
+                </div>
+            </div>
+            <div class="pdf-body">
+                <div id="grid"></div>
+                <p class="signature">
+                    Signature: ________________
+                    <br />
+                    <br /> Date: 12.03.2014
+                </p>
+            </div>
+
+        </div>
+
+    </div>
 
 
     <style>
@@ -97,7 +99,7 @@ a broken version on Kendo is here (add extra records): https://dojo.telerik.com/
 			The standard PDF fonts have no support for Unicode characters.
 		*/
 
-        .rjs-page {
+        .rp-page {
             font-family: "DejaVu Sans", "Arial", sans-serif;
         }
     </style>
@@ -198,19 +200,6 @@ a broken version on Kendo is here (add extra records): https://dojo.telerik.com/
                 }
             });
             window.RESPONSIVE_PAPER_READY_TO_RENDER = true;
-            // var opt = {
-            //     format: 'a4',
-            //     orientation: 'portrait',
-            //     showLoading: false,
-            //     hideSource: true,
-            //     //markdownFn: window.marked,
-            //     singlePagePreview: false,
-            //     paperSizeSelector: false
-            //     // chromePdfOptionsPropertyName: "JSREPORT_CHROME_PDF_OPTIONS",
-            //     // renderCompletePropertyName: "JSREPORT_READY_TO_START"
-            // };
-            // rjs.preview(null, opt);
-
         });
     </script>
     <style>
