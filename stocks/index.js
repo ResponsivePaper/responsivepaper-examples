@@ -828,6 +828,33 @@ function ViewModel() {
 
 
   }
+  this.waitFor = async function (fn, args, ms, interval) {
+    let timeoutCtr = 0
+    const iterations = ms / interval
+    function timeout(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    while (timeoutCtr < iterations) {
+      timeoutCtr++
+      if (await fn(...args)) return true
+      await timeout(interval)
+    }
+    return false
+
+  }
+  this.checkImages = async function (images) {
+    console.log("checking " + images.length + " images...")
+    for (var i = 0; i < images.length; i++) {
+      if (!images[i].complete) {
+        return false
+      }
+    }
+    //TODO scroll to each image in the window
+    //window.scrollBy(0, document.body.scrollHeight)
+    //window.scrollBy(0, 0)
+
+    return true
+  }
   this.init = async function () {
 
 
@@ -845,6 +872,9 @@ function ViewModel() {
 
     this.formatText()
     this.formatCharts()
+    var images = document.getElementsByTagName("img")
+    if (await this.waitFor(this.checkImages, [images], 10000, 50)) { console.log("Images loaded") } else { console.log("images not loaded") }
+    console.log("RESPONSIVE_PAPER_READY_TO_RENDER")
     window.RESPONSIVE_PAPER_READY_TO_RENDER = true;
 
   }
