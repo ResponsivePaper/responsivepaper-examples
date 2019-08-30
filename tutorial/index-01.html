@@ -1,30 +1,18 @@
 <html>
 
 <head>
-    <title>01 - Responsive Paper Tutorial Report</title>
+    <title>Step 1 - Responsive Paper Tutorial Report</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="main.css" />
-
 </head>
 
 <body>
     <div class="rp-page rp-ps-letter" id="rpReport">
-        <p>Hello World</p>
-        <img class="" src='images/logo.png' />
+        <img class="logo" src='images/logo.png' />
+        <p>Catalog Report</p>
     </div>
-    <script>
-        window.RESPONSIVE_PAPER_READY_TO_RENDER = true
-    </script>
-    <script src="http://localhost:3000/devtools/inject.js"></script>
-    <script>
-
-        rp.init()
-
-        rp.toggleCss()
-
-        //rp.preview(true)
-
-    </script>
+    <script src="http://localhost:3000/devtools/responsive-paper.designer.js"></script>
+    <script src="responsive-paper.settings.js"></script>
 </body>
 
 </html>
