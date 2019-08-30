@@ -9,9 +9,9 @@ var opt = {
   // npm install -g localtunnel
   // Use the subdomain option to re use the same subdomain between restarts
   // lt --port 8080 --subdomain mylocaltesting
-  // If you run the command above you would set tunnelHostName to https://mylocaltesting.localtunnel.me
+  // If you run the command above you would set tunnelHostUrl https://mylocaltesting.localtunnel.me
 
-  tunnelHostName: "",
+  tunnelHostUrl: "",
 
   //enter your apiKey from the responsive paper dashboard
   //https://responsivepaper.com/user/dashboard
@@ -24,7 +24,7 @@ var opt = {
   autoPreview: true,
 
   //only override hostName if you are an enterprise user running a local pdf conversion server
-  hostName: "https://responsivepaper.com"
+  serverUrl: "https://responsivepaper.com"
 
 }
 rpDesigner.init(opt)
