@@ -18,10 +18,12 @@ var opt = {
 
   apiKey: "",
 
-  includeConsole: true,
+  applyResponsivePaperCss: false,
+  includeConsole: false,
+  autoPreview: false,
   waitForReadyToRender: false,
-  applyResponsivePaperCss: true,
-  autoPreview: true,
+  waitForReadyToRenderTimeout: 1000,
+
 
   //only override hostName if you are an enterprise user running a local pdf conversion server
   serverUrl: "https://responsivepaper.com"
