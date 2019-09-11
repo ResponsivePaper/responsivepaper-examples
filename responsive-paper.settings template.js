@@ -19,8 +19,9 @@ var opt = {
   apiKey: "",
 
   applyResponsivePaperCss: false,
-  includeConsole: false,
   autoPreview: false,
+  disableCache: false,
+  includeConsole: false,
   waitForReadyToRender: false,
   waitForReadyToRenderTimeout: 1000,
 

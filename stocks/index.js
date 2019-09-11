@@ -846,6 +846,8 @@ function ViewModel() {
 
     this.formatText()
     this.formatCharts()
+
+
     console.log("RESPONSIVE_PAPER_READY_TO_RENDER")
     window.RESPONSIVE_PAPER_READY_TO_RENDER = true;
 
@@ -857,4 +859,9 @@ window.onload = function () {
   let vm = new ViewModel()
   vm.init()
 
+}
+
+window.test = function () {
+  var source = document.getElementsByClassName('rp-page')[0]
+  var sourceCopy = source.cloneNode(true)
 }
