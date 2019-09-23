@@ -1,14 +1,58 @@
 <html>
 
 <head>
-    <title>Step 4 - Responsive Paper Tutorial Report</title>
+    <title>Step 6 - Responsive Paper Tutorial Report</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="main.css" />
+    <style>
+        /* Inlining style for instruction purposes only*/
+        .cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: url("images/ocean.jpg") no-repeat center 35%;
+            background-size: auto 90%;
+        }
+
+        .cover-content h2 {
+            padding-left: 10%;
+            padding-top: 20px;
+        }
+
+        .cover-content img {
+            width: 100%
+        }
+    </style>
 </head>
 
 <body>
     <!--STEP 1: setting the parent element to parse and page size/orientation-->
     <div class="rp-page rp-ps-letter" id="rpReport">
+        <!--STEP 6: Cover page-->
+
+        <div class="cover rp-full-page rp-contain">
+            <div class="cover-content">
+                <img src="images/logo.png" />
+                <h2>
+                    PRODUCT CATALOG
+                </h2>
+            </div>
+        </div>
+
+        <!--STEP 5: Table of contents-->
+        <h3>Table of Contents</h3>
+        <div>
+            <a href="#cat1">
+                <span>Category 1 - Page </span> <span class="rp-id-page-number" data-id="cat1">1</span>
+            </a>
+        </div>
+        <div>
+            <a href="#cat2">
+                <span>Category 2 - Page </span> <span class="rp-id-page-number" data-id="cat2">1</span>
+            </a>
+        </div>
+        <div class="rp-force-page-break"></div>
+
         <!--STEP 2: Wrap the logo in a div.rp-page-header and add example content with a rp-force-page-break -->
         <div class="rp-page-header">
             <img class="logo" src='images/logo.png' />
@@ -26,7 +70,10 @@
             <div class="rp-group-header">Category 2<span class="rp-hide-on-first-page"> - Continued</span></div>
             <p>First page content for category 2</p>
             <div class="rp-force-page-break"></div>
-            <p>Second page content for category 2</p>
+            <p>Second page content for category 2.
+                For more information on Category 1, please see page
+                <a href="#cat1"><span class="rp-id-page-number" data-id="cat1">1</span></a>
+            </p>
         </div>
         <div class="rp-page-footer">
             <span>&copy; 2019 example.com, all rights reserved</span>
@@ -38,6 +85,7 @@
     </div>
     <script src="https://responsivepaper.com/devtools/responsive-paper.designer.js"></script>
     <script src="/responsive-paper.settings.js"></script>
+
 </body>
 
 </html>

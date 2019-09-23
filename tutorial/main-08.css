@@ -1,0 +1,68 @@
+body {
+    font-family: 'Open Sans', 'open_sansregular', sans-serif;
+}
+
+.logo {
+    height: 80px;
+}
+
+.cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: url("images/ocean.jpg") no-repeat center 35%;
+    background-size: auto 90%;
+}
+
+.cover-content h2 {
+    padding-left: 10%;
+    padding-top: 20px;
+}
+
+.cover-content img {
+    width: 100%
+}
+
+.toc-content {
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.toc-content a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.toc-content li {
+    border-bottom: 2px dotted black;
+}
+
+.toc-heading {
+    border-bottom: none
+}
+
+.toc-page-number {
+    float: right;
+}
+
+th:nth-child(1), td:nth-child(1) {
+    text-align: left;
+    width: 20%;
+}
+
+th:nth-child(2),td:nth-child(2) {
+    text-align: right;
+}
+
+th:nth-child(3), td:nth-child(3) {
+    text-align: right;
+    width: 30%;
+}
+
+.rp-page-footer {
+    margin-top: 10px;
+    padding: 5px;
+    background-color: black;
+    color: white;
+    font-size: .8em;
+}
