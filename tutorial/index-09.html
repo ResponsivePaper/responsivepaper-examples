@@ -1,32 +1,15 @@
 <html>
 
 <head>
-    <title>Step 7 - Responsive Paper Tutorial Report</title>
+    <title>Step 9 - Responsive Paper Tutorial Report</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <style>
-        /* Inlining style for instruction purposes only*/
-        .cover {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: url("images/ocean.jpg") no-repeat center 35%;
-            background-size: auto 90%;
-        }
-
-        .cover-content h2 {
-            padding-left: 10%;
-            padding-top: 20px;
-        }
-
-        .cover-content img {
-            width: 100%
-        }
-    </style>
+    <link href='https://www.responsive-paper.com/utils/responsive-paper-sizes.min.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="main-08.css" />
 </head>
 
 <body>
     <!--STEP 1: setting the parent element to parse and page size/orientation-->
-    <div class="rp-page rp-ps-letter" id="rpReport">
+    <div class="rp-page rp-ps-letter-ls" id="rpReport">
         <!--STEP 6: Cover page-->
 
         <div class="cover rp-full-page rp-contain">
@@ -37,18 +20,18 @@
                 </h2>
             </div>
         </div>
-
-        <!--STEP 5: Table of contents-->
-        <h3>Table of Contents</h3>
-        <div>
-            <a href="#cat1">
-                <span>Category 1 - Page </span> <span class="rp-id-page-number" data-id="cat1">1</span>
-            </a>
-        </div>
-        <div>
-            <a href="#cat2">
-                <span>Category 2 - Page </span> <span class="rp-id-page-number" data-id="cat2">1</span>
-            </a>
+        <!--STEP 8: Updated Table of contents-->
+        <div class="rp-force-page-break"></div>
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul class="toc-content">
+                <li v-for="cat in categories">
+                    <a :href="'#cat' + cat.categoryID">
+                        <span class="toc-heading">{{cat.categoryName}}</span><span
+                            class="rp-id-page-number toc-page-number" :data-id="'cat' + cat.categoryID">1</span>
+                    </a>
+                </li>
+            </ul>
         </div>
         <div class="rp-force-page-break"></div>
 
@@ -63,7 +46,7 @@
                         <tr>
                             <th>Product Name</th>
                             <th>Price</th>
-                            <th class="colQuantityPerUnit">Quantity Per Unit</th>
+                            <th class="rp-visible-letter-ls colQuantityPerUnit">Quantity Per Unit</th>
                             <th class="colUnitsInStock">In Stock Qty</th>
                         </tr>
                     </thead>
@@ -71,7 +54,7 @@
                         <tr v-for="p in cat.products">
                             <td>{{p.productName}}</td>
                             <td>{{p.unitPrice}}</td>
-                            <td class="colQuantityPerUnit">{{p.quantityPerUnit}}</th>
+                            <td class="rp-visible-letter-ls colQuantityPerUnit">{{p.quantityPerUnit}}</th>
                             <td class="colUnitsInStock">{{p.unitsInStock}}</td>
 
                         </tr>
