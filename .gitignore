@@ -3,3 +3,5 @@ src/
 stocks/stock report.pdf
 tutorial/responsive-paper.settings.js
 responsive-paper.settings.js
+node_modules/
+deployment/node/index-testing.js
