@@ -13,8 +13,8 @@ var options = {
     includeConsole: true,
     format: "Legal",
     landscape: true,
-    printMedia: true,
-    timeout: 200
+    printMedia: false,
+    timeout: 5000
   },
   responseType: 'stream'
 };
@@ -29,9 +29,10 @@ function streamToString(stream) {
 }
 
 http.createServer(async function (req, res) {
-  if (req.url.includes("favicon")) {
+  if (req.url !== "/") {
     res.writeHead(404)
     res.end()
+    return
   }
   try {
     const result = await axios(options)
