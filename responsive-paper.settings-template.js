@@ -10,7 +10,9 @@ var opt = {
   // Use the subdomain option to re use the same subdomain between restarts
   // lt --port 8080 --subdomain mylocaltesting
   // If you run the command above you would set tunnelHostUrl https://mylocaltesting.localtunnel.me
-
+  //
+  // If you are running ngrok for tunneling, use this command to access a local web server over https, changing the port:
+  // ngrok http -host-header=rewrite https://localhost:44300
   tunnelHostUrl: "",
 
   //enter your apiKey from the responsive paper dashboard
