@@ -5,3 +5,8 @@ tutorial/responsive-paper.settings.js
 responsive-paper.settings.js
 node_modules/
 deployment/node/index-testing.js
+deployment/dotnet/WebApp/appsettings.json
+deployment/dotnet/WebApp/.vs/
+deployment/dotnet/WebApp/bin/
+deployment/dotnet/WebApp/obj/
+deployment/dotnet/WebApp/Properties/

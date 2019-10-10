@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNetCore.Http
+@using WebApp.Helpers
+@model WebApp.Models.InvoiceModel
+
+<html>
+<head>
+    <link href="~/css/invoice.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <div class="invoice-box rp-page">
+        <table cellpadding="0" cellspacing="0">
+            <tbody class="rp-group">
+                <tr class="top rp-group-header">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td class="title">
+                                    <img src="~/img/logo.png" style="width: 100%; max-width: 300px;" />
+                                </td>
+                                <td>
+                                    <div class="float-right hidden rp-visible">Page <span class="rp-page-number"></span> of <span class="rp-page-count"></span> </div>
+                                    <div class="float-right">Invoice #: @Model.Number</div>
+                                    <div class="float-right">Created: @DateTime.Now.ToShortDateString()</div>
+                                    <div class="float-right">Due: @DateTime.Now.AddDays(20).ToShortDateString()</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="information ">
+                    <td colspan="2 ">
+                        <table>
+                            <tr>
+                                <td>
+                                    @Model.Seller.Name<br>
+                                    @Model.Seller.Road<br>
+                                    @Model.Seller.Country
+                                </td>
+                                <td>
+                                    @Model.Buyer.Name<br>
+                                    @Model.Buyer.Road<br>
+                                    @Model.Buyer.Country
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="heading rp-group-header">
+                    <td>
+                        Item
+                    </td>
+                    <td>
+                        Price
+                    </td>
+                </tr>
+
+                @foreach (var item in Model.Items)
+                {
+                    <tr class="item rp-keep-together">
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            $ @item.Price
+                        </td>
+                    </tr>
+                }
+
+                <tr class="total ">
+                    <td></td>
+                    <td>
+                        Total: @Model.Items.Sum(i => i.Price)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    @if (HtmlHelpers.IsDebug())
+    {
+        <script src="https://responsivepaper.com/devtools/responsive-paper.designer.js"></script>
+        <script>
+            var opt = {
+                tunnelHostUrl: "",
+                apiKey: "",
+
+                applyResponsivePaperCss: false,
+                autoPreview: true,
+                disableCache: false,
+                includeConsole: true,
+                waitForReadyToRender: false,
+                waitForReadyToRenderTimeout: 1000,
+                //only override if you are an enterprise user running a local pdf conversion server
+                serverUrl: "https://www.responsivepaper.com"
+            }
+            rpDesigner.init(opt)
+        </script>
+    }
+</body>
+</html>

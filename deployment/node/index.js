@@ -3,7 +3,7 @@ const axios = require('axios')
 
 var options = {
   method: "POST",
-  url: "https://www.responsivepaper.com/convert",
+  url: "https://www.responsivepaper.com/api/html2pdf/v2",
 
   data: {
     value: "https://examples.responsivepaper.com/invoice",
