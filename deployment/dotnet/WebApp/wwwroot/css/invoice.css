@@ -83,7 +83,8 @@
         text-align: center;
     }
 }
-.rp-pdf .invoice-box {
+.invoice-box.rp-render {
     box-shadow: none;
     border: 0;
+    max-width: 100% !important;
 }
