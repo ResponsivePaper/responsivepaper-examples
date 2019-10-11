@@ -65,7 +65,6 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Invoice(string authToken, bool includeConsole, string format, bool landscape, bool attachment)
         {
             //It would be smarter to create and save a one time use token to a session store instead of hard coding _authToken
-            
             if (_authToken == authToken)
             {
                 //incoming request from Responsive Paper Service
@@ -73,10 +72,7 @@ namespace WebApp.Controllers
             }
 
             //request conversion from Responsive Paper Service
-
-
             using var httpClient = new HttpClient();
-
             var content = new StringContent(jsonBody(includeConsole,format,landscape), UnicodeEncoding.UTF8, "application/json");
             var response = await httpClient.PostAsync(_responsivePaperSettings.Value.Url, content);
             if (response.IsSuccessStatusCode)
@@ -85,19 +81,15 @@ namespace WebApp.Controllers
                 {
                     HttpContext.Response.Headers["Content-Disposition"] = "attachment; filename=\"invoice.pdf\"";
                 }
-
                 var stream = await response.Content.ReadAsStreamAsync();
                 return new FileStreamResult(stream, "application/pdf");
             }
-            else
+            return new ContentResult
             {
-                return new ContentResult
-                {
-                    Content = await response.Content.ReadAsStringAsync(),
-                    ContentType = "application/problem+json",
-                    StatusCode = (int)response.StatusCode
-                };
-            }
+                Content = _hostingEnv.IsDevelopment() ? await response.Content.ReadAsStringAsync() : "{\"error\": \"Internal Server Error Occurred, please try again\"",
+                ContentType = "application/problem+json",
+                StatusCode = (int)response.StatusCode
+            };
         }
 
     }
