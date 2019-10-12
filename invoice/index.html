@@ -51,43 +51,41 @@ a broken version on Kendo is here (add extra records): https://dojo.telerik.com/
             </span>
             <span class="invoice-number">Invoice #23543</span>
         </div>
-        <div class="rp1-page">
 
 
-            <div class="addresses">
-                <div class="for">
-                    <h3>Invoice For</h3>
-                    <p>
-                        Antonio Moreno
-                        <br /> Naucalpan de Juárez
-                        <br /> México D.F., Mexico, 53500
-                    </p>
-                </div>
-
-                <div class="from">
-                    <h3>From</h3>
-                    <p>
-                        Hanna Moos
-                        <br /> Lützowplatz 456
-                        <br /> Berlin, Germany, 10785
-                    </p>
-                    <p>
-                        Invoice ID: 23543
-                        <br /> Invoice Date: 12.03.2014
-                        <br /> Due Date: 27.03.2014
-                    </p>
-                </div>
-            </div>
-            <div class="pdf-body">
-                <div id="grid"></div>
-                <p class="signature">
-                    Signature: ________________
-                    <br />
-                    <br /> Date: 12.03.2014
+        <div class="addresses">
+            <div class="for">
+                <h3>Invoice For</h3>
+                <p>
+                    Antonio Moreno
+                    <br /> Naucalpan de Juárez
+                    <br /> México D.F., Mexico, 53500
                 </p>
             </div>
 
+            <div class="from">
+                <h3>From</h3>
+                <p>
+                    Hanna Moos
+                    <br /> Lützowplatz 456
+                    <br /> Berlin, Germany, 10785
+                </p>
+                <p>
+                    Invoice ID: 23543
+                    <br /> Invoice Date: 12.03.2014
+                    <br /> Due Date: 27.03.2014
+                </p>
+            </div>
         </div>
+        <div class="pdf-body">
+            <div id="grid" class='rp-group'></div>
+            <p class="signature">
+                Signature: ________________
+                <br />
+                <br /> Date: 12.03.2014
+            </p>
+        </div>
+
 
     </div>
 
@@ -198,6 +196,13 @@ a broken version on Kendo is here (add extra records): https://dojo.telerik.com/
                         .addClass(this.value());
                 }
             });
+            var groupHeaders = document.getElementsByClassName('k-grid-header')
+            if (groupHeaders && groupHeaders.length > 0) {
+                for (var i = 0; i < groupHeaders.length; i++) {
+                    groupHeaders[i].classList.add('rp-group-header')
+
+                }
+            }
             window.RESPONSIVE_PAPER_READY_TO_RENDER = true;
         });
     </script>

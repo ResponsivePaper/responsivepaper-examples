@@ -2,73 +2,27 @@
 
 <head>
   <title>Test</title>
-  <style>
-    @media (min-width: 613px) {
-      .sm {
-        background-color: red
-      }
-    }
-
-    @media (min-width: 793px) {
-      .sm-ls {
-        background-color: red
-      }
-    }
-
-    @media (min-width: 612px) {
-      .sm-bp {
-        background-color: red
-      }
-    }
-
-    @media (min-width: 792px) {
-      .sm-ls-bp {
-        background-color: red
-      }
-    }
-
-    .sm-width {
-      width: 616px;
-      min-width: 616px;
-      background-color: yellow;
-    }
-
-    /* fix */
-
-
-    @media (min-width: 612px) {
-      .rp-pdf.sm {
-        background-color: lightgreen;
-      }
-    }
-
-    @media (min-width: 792px) {
-      .rp-pdf.sm-ls {
-        background-color: lightgreen;
-      }
-    }
-  </style>
-
+  <link rel="stylesheet" href="site.css" />
 </head>
 
 <body>
-  <h1>Chrome media breakpoint issue</h1>
-  <p>To reproduce, right click the web page and click "Print...", set paper size to Letter then change the orientation
-  </p>
-  <h2>Portrait Tests</h2>
-  <p class="sm">This paragraph should be red in portrait but isn't with media(min-width:613px), media(min-width:816px)
-    should show red</p>
-  <p class="sm-bp">This paragraph is red in portrait with media(min-width:612px), 75% of the actual width</p>
-  <h2>Landscape Tests</h2>
-  <p class="sm-ls">This paragraph should be red in landscape but isn't with media(min-width:793px),
-    media(min-width:1056px) should show red</p>
-  <p class="sm-ls-bp">This paragraph is red in landscape with media(min-width:792px), 75% of the actual width</p>
-  <div class="sm-width">
-    This is a 616px div element.
+  <div class='rp-page rp-ps-letter'>
+    <h1>Chrome media breakpoint issue</h1>
+    <p>To reproduce, right click the web page and click "Print...", set paper size to Letter then change the orientation
+    </p>
+    <h2>Portrait Tests</h2>
+    <p class="sm">This paragraph should be red in portrait but isn't with media(min-width:613px), media(min-width:816px)
+      should show red</p>
+    <p class="sm-bp">This paragraph is red in portrait with media(min-width:612px), 75% of the actual width</p>
+    <h2>Landscape Tests</h2>
+    <p class="sm-ls">This paragraph should be red in landscape but isn't with media(min-width:793px),
+      media(min-width:1056px) should show red</p>
+    <p class="sm-ls-bp">This paragraph is red in landscape with media(min-width:792px), 75% of the actual width</p>
+    <div class="sm-width">
+      This is a 616px div element.
+    </div>
+
   </div>
-  <h2>Fix</h2>
-  <p class="rp-pdf sm">This paragraph is now green in portrait</p>
-  <p class="rp-pdf sm-ls">This paragraph is now green in landscape</p>
 
   <script src="https://responsivepaper.com/devtools/responsive-paper.designer.js"></script>
   <script src="/responsive-paper.settings.js"></script>

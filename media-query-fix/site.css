@@ -1,0 +1,33 @@
+    @media (min-width: 816px) {
+      .sm {
+        background-color: red
+      }
+    }
+
+    @media (min-width: 1056px) {
+      .sm-ls {
+        background-color: red
+      }
+    }
+
+    @media (min-width: 612px) {
+      .sm-bp {
+        background-color: red
+      }
+    }
+
+    @media (min-width: 792px) {
+      .sm-ls-bp {
+        background-color: red
+      }
+    }
+
+    .sm-width {
+      width: 616px;
+      min-width: 616px;
+      background-color: yellow;
+    }
+
+
+
+
