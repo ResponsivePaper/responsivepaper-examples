@@ -1,0 +1,28 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "description": "Contains example reports for responsive paper features.",
+  "main": "responsive-paper.settings-template.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ResponsivePaper/responsivepaper-examples.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ResponsivePaper/responsivepaper-examples/issues"
+  },
+  "homepage": "https://github.com/ResponsivePaper/responsivepaper-examples#readme",
+  "devDependencies": {
+    "eslint": "^7.16.0",
+    "prettier": "^2.2.1",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-node": "^11.0.0"
+  }
+}

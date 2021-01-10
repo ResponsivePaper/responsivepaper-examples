@@ -21,6 +21,28 @@ a broken version on Kendo is here (add extra records): https://dojo.telerik.com/
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.common-material.min.css" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.material.min.css" />
     <!-- <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.material.mobile.min.css" /> -->
+    <style>
+        .floating-menu {
+            font-family: sans-serif;
+            background: grey;
+            padding: 5px;
+            opacity: .5;
+            width: 130px;
+            z-index: 100;
+            position: fixed;
+            left: 50%;
+            transform: translate(-50%, 0);
+            top: 10px;
+        }
+
+        .floating-menu a,
+        .floating-menu h3 {
+            font-size: 0.9em;
+            display: block;
+            margin: 0 0.5em;
+            color: white;
+        }
+    </style>
 
     <script src="https://kendo.cdn.telerik.com/2018.2.516/js/jquery.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2018.2.516/js/jszip.min.js"></script>
@@ -30,6 +52,9 @@ a broken version on Kendo is here (add extra records): https://dojo.telerik.com/
 
 <body>
     <div class="rp-page rp-ps-letter">
+        <div id="printOptions" class="rp-hidden floating-menu"><a
+                href="/.netlify/functions/convert/?url=https://examples.responsivepaper.com/invoice/">Generate Pdf</a>
+        </div>
         <div class="pdf-footer rp-page-footer">
             <div class="float-right text-right" style="margin-top: 1.5em">
                 <span class="rp-hide-on-last-page">Continued on next page</span> <br>

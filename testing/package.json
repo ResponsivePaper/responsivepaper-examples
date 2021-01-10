@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "localtunnel": "^2.0.0"
+    "localtunnel": "^2.0.1"
   }
 }
