@@ -1,0 +1,54 @@
+﻿<html>
+
+<head>
+    <title>8195 labels</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .rp-page {
+            padding-top: 13mm !important;
+            padding-left: 8mm !important;
+            padding-right: 0mm !important;
+            padding-bottom: 5mm !important;
+            /* background-image: url('labels.jpg');
+            background-size: cover; */
+        }
+
+        .mailing-label-5260 {
+            width: 4.4cm;
+            height: 1.68cm;
+            display: inline-block;
+            padding-top: 5px;
+            padding-left: 5px;
+            font-size: .8em;
+            margin-right: 8mm;
+        }
+
+        .mailing-label-5260:nth-child(4n+0) {
+            margin-right: 0px;
+        }
+    </style>
+</head>
+<!-- style="margin-left: 7mm; margin-right:7mm; margin-top:13mm; margin-bottom: 10mm" -->
+
+<body>
+    <div class="rp-page rp-ps-letter sheet-8195" id="rpReport">
+        <!--ko foreach: labels-->
+        <div class="mailing-label-5260">
+            <span data-bind="text: line1"></span><br />
+            <span data-bind="text: line2"></span><br />
+            <span data-bind="text: line3"></span><br />
+        </div>
+        <!--/ko-->
+    </div>
+    <script src="https://responsivepaper.com/devtools/responsive-paper.designer.js"></script>
+    <script src="/responsive-paper.settings.js"></script>
+    <script type="text/javascript" src="/lib/knockout-3.5.0.js"></script>
+    <script type="text/javascript" src="index8195.js"></script>
+
+</body>
+
+</html>
